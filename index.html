@@ -62,7 +62,7 @@
       align-items: center;
       gap: 1.5rem;
       width: 100%;
-      max-width: 300px;
+      max-width: 200px; /* Reduced from 300px */
       user-select: none;
       cursor: pointer;
     }
@@ -186,7 +186,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 250px;
+        width: 250px; /* Reduced from 260px */
         height: 100vh;
         background-color: #000;
         border-right: 1px solid #222;
@@ -356,6 +356,15 @@
       }
     }
 
+    // Auto-detect OS
+    function detectOS() {
+      const userAgent = navigator.userAgent.toLowerCase();
+      if (userAgent.includes('android')) return 'android';
+      if (userAgent.includes('win')) return 'windows';
+      if (userAgent.includes('linux')) return 'linux';
+      return 'android'; // Default to Android if not detected
+    }
+
     // Handle OS item click & keyboard
     osList.addEventListener('click', e => {
       const osItem = e.target.closest('.os-item');
@@ -416,13 +425,14 @@
       toggleLeftPanel(false);
     });
 
-    // Optional: Select first OS by default on page load
+    // Select detected OS by default on page load
     window.addEventListener('load', () => {
-      const firstOS = osList.querySelector('.os-item[data-os="android"]');
+      const detectedOs = detectOS();
+      const firstOS = osList.querySelector(`.os-item[data-os="${detectedOs}"]`);
       if (firstOS) {
         firstOS.classList.add('active');
         firstOS.setAttribute('aria-pressed', 'true');
-        showOSInfo('android');
+        showOSInfo(detectedOs);
       }
     });
 
