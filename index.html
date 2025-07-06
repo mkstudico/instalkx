@@ -1,314 +1,437 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Download Full App - KINAFLIX</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Black Screen Split - Mobile Friendly</title>
+
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background-color: #141414;
-      color: #f4f4f4;
+    html, body {
       margin: 0;
       padding: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      overflow-x: hidden;
+      background-color: #000;
+      height: 100%;
+      width: 100%;
+      color: red;
+      font-family: 'Poppins', sans-serif;
+      user-select: none;
+      overflow: hidden; /* prevent body scroll */
     }
+
     .container {
       display: flex;
-      flex: 1;
-      max-width: 1000px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 2rem 1rem;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
     }
-    .os-section {
-      flex: 0 0 250px;
-      position: fixed;
-      top: 2rem;
-      left: 1rem;
-      background: #1f1f1f;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-      height: calc(100vh - 4rem);
-      overflow-y: auto;
+
+    .left, .right {
+      flex: 1;
       display: flex;
       flex-direction: column;
-    }
-    .os-header {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .logo {
-      width: 150px;
-      height: auto;
-      margin-bottom: 0.5rem;
-    }
-    .name {
-      font-size: 1.5rem;
-      color: #e50914;
-      text-transform: uppercase;
-      margin: 0;
-    }
-    .os-section h2 {
-      color: #e50914;
-      font-size: 1.6rem;
-      margin: 0 0 1rem;
-      text-align: center;
-      text-transform: uppercase;
-    }
-    .os-list {
-      list-style: none;
-      padding: 0;
-      flex: 1;
-    }
-    .os-list li {
-      font-size: 1.1rem;
-      padding: 0.8rem 1rem;
-      margin-bottom: 0.5rem;
-      color: #ccc;
-      cursor: pointer;
-      display: flex;
       align-items: center;
-      gap: 0.8rem;
-      border-radius: 5px;
-      transition: background 0.3s, color 0.3s;
-    }
-    .os-list li img {
-      width: 28px;
-      height: 28px;
-      filter: brightness(0.8);
-      transition: filter 0.3s;
-    }
-    .os-list li.selected {
-      background: #2a2a2a;
-    }
-    .os-list li.selected span {
-      color: #e50914; /* Red for selected OS text */
-    }
-    .os-list li.selected img {
-      filter: brightness(1);
-    }
-    .os-list li:hover {
-      background: #2a2a2a;
-      color: #fff;
-    }
-    .os-list li:hover img {
-      filter: brightness(1);
-    }
-    .download-section {
-      flex: 1;
-      margin-left: 270px; /* Offset for OS section */
-      padding: 2rem;
-      background: #1f1f1f;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-      height: calc(100vh - 4rem);
+      position: relative;
+      padding: 1rem 2rem;
       overflow-y: auto;
-      transition: transform 0.5s ease, opacity 0.5s ease;
+      transition: transform 0.3s ease;
+      background-color: #000;
     }
-    .download-section.enter {
-      transform: translateY(0);
-      opacity: 1;
+
+    .left {
+      border-right: 1px solid #222;
+      justify-content: flex-start;
+      z-index: 10;
     }
-    .download-section.leave {
-      transform: translateY(20px);
-      opacity: 0;
+
+    .title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      margin-bottom: 2rem;
+      color: red;
+      user-select: text;
+      align-self: flex-start;
     }
-    .download-section h3 {
-      color: #e50914;
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
+
+    .os-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 300px;
+      user-select: none;
+      cursor: pointer;
     }
-    .download-section p {
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-      color: #bbb;
-    }
-    .download-btn {
-      background-color: #e50914;
-      color: white;
-      padding: 1rem 2.5rem;
-      border: none;
-      border-radius: 25px;
+
+    .os-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: red;
       font-size: 1.2rem;
+      user-select: none;
+      transition: color 0.3s ease, background-color 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .os-item:hover, .os-item.active {
+      color: #ff4444;
+      background-color: rgba(255, 0, 0, 0.1);
+    }
+
+    .os-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 0.4rem;
+      pointer-events: none;
+    }
+
+    .footer-text {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9rem;
+      color: red;
+      user-select: none;
+      align-self: flex-start;
+    }
+
+    /* Right side details panel */
+    .right {
+      color: #f44336;
+      font-size: 1rem;
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      box-sizing: border-box;
+      margin-top: 3rem;
+      text-align: left;
+    }
+
+    .details-panel {
+      max-width: 600px;
+      width: 100%;
+      background-color: rgba(255, 0, 0, 0.05);
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      box-sizing: border-box;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      min-height: 200px;
+      margin: 0 auto;
+    }
+
+    .details-panel.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .details-panel p, 
+    .details-panel ul {
+      margin: 0.6rem 0;
+      line-height: 1.4;
+    }
+
+    .details-panel ul {
+      list-style: none;
+      padding-left: 1rem;
+    }
+
+    .details-panel ul li::before {
+      content: "• ";
+      color: #ff6666;
+    }
+
+    .download-btn {
+      margin-top: 1.5rem;
+      display: inline-block;
+      background-color: red;
+      color: black;
+      font-weight: 600;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
       text-decoration: none;
-      display: inline-block;
-      transition: background 0.3s;
+      transition: background-color 0.3s ease;
+      font-family: 'Poppins', sans-serif;
     }
+
     .download-btn:hover {
-      background-color: #f40612;
+      background-color: #ff6666;
+      color: black;
     }
-    .version {
-      font-size: 0.9rem;
-      color: #999;
-      margin-top: 1rem;
+
+    .platform-title {
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: red;
     }
-    .footer {
-      text-align: center;
-      padding: 1rem;
-      background: #1f1f1f;
-      color: #999;
-      font-size: 0.9rem;
-      margin-top: auto;
-    }
-    @media (max-width: 768px) {
-      .os-section {
-        position: static;
-        flex: 0 0 180px;
-        height: auto;
-        margin-bottom: 1.5rem;
-        padding: 1rem;
-      }
-      .os-header {
-        margin-bottom: 1rem;
-      }
-      .logo {
-        width: 120px;
-      }
-      .name {
-        font-size: 1.2rem;
-      }
-      .download-section {
-        margin-left: 0;
-        padding: 1rem;
-        height: auto;
-        overflow-y: visible;
-      }
-      .os-section h2 {
-        font-size: 1.3rem;
-      }
-      .os-list li {
-        font-size: 1rem;
-        padding: 0.6rem 0.8rem;
-      }
-      .os-list li img {
-        width: 22px;
-        height: 22px;
-      }
-      .download-section h3 {
-        font-size: 1.2rem;
-      }
-      .download-btn {
-        padding: 0.8rem 2rem;
-        font-size: 1rem;
-      }
+
+    /* Mobile styles */
+    @media (max-width: 767px) {
       .container {
-        flex-direction: column;
-        padding-top: 0;
+        position: relative;
       }
-      .os-section, .download-section {
-        height: auto;
+
+      .left {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100vh;
+        background-color: #000;
+        border-right: 1px solid #222;
+        padding-top: 4rem;
+        transform: translateX(-260px);
+        box-shadow: 2px 0 8px rgba(255, 0, 0, 0.3);
+        transition: transform 0.3s ease;
       }
-      .footer {
-        margin-top: 1rem;
+
+      .left.show {
+        transform: translateX(0);
+      }
+
+      .right {
+        flex: 1;
+        padding: 2rem 1.5rem 1.5rem 1.5rem;
+        margin-top: 0;
+        margin-left: 0;
+        overflow-y: auto;
+      }
+
+      .footer-text {
+        position: static;
+        margin-top: auto;
+        padding-bottom: 1rem;
+      }
+
+      /* Toggle button */
+      #toggleLeftBtn {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 20;
+        padding: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #toggleLeftBtn svg {
+        fill: white;
+        width: 28px;
+        height: 28px;
+      }
+
+      /* Add overlay when menu is open */
+      #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9;
+        display: none;
+      }
+
+      #overlay.show {
+        display: block;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Toggle button for mobile -->
+  <button id="toggleLeftBtn" aria-label="Toggle Platforms menu" aria-expanded="false" aria-controls="leftPanel">
+    <!-- White settings gear icon SVG -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M19.14 12.94c.04-.31.07-.63.07-.94s-.03-.63-.07-.94l2.03-1.58a.5.5 0 0 0 .11-.63l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.027 7.027 0 0 0-1.62-.94l-.36-2.54A.5.5 0 0 0 14.67 4h-3.34a.5.5 0 0 0-.5.43l-.36 2.54a7.027 7.027 0 0 0-1.62.94l-2.39-.96a.5.5 0 0 0-.6.22L2.7 9.48a.5.5 0 0 0 .11.63l2.03 1.58c-.04.31-.07.63-.07.94s.03.63.07.94L2.81 15.7a.5.5 0 0 0-.11.63l1.92 3.32c.14.25.45.35.7.22l2.39-.96c.5.38 1.04.68 1.62.94l.36 2.54a.5.5 0 0 0 .5.43h3.34a.5.5 0 0 0 .5-.43l.36-2.54c.58-.26 1.12-.56 1.62-.94l2.39.96c.25.13.56.03.7-.22l1.92-3.32a.5.5 0 0 0-.11-.63l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5z"/>
+    </svg>
+  </button>
+
   <div class="container">
-    <div class="os-section">
-      <div class="os-header">
-        <img src="https://via.placeholder.com/150x50.png?text=KINAFLIX+Logo" alt="KINAFLIX Logo" class="logo">
-        <h1 class="name">KINAFLIX</h1>
+    <aside class="left" id="leftPanel" role="navigation" aria-label="Platform selection">
+      <div class="title">Platforms</div>
+      <div class="os-list" id="osList">
+        <div class="os-item" data-os="android" tabindex="0" role="button" aria-pressed="false" aria-label="Android Platform">
+          <img src="https://i.ibb.co/wZtpksp3/android-1-removebg-preview.png" alt="Android" />
+          ANDROID
+        </div>
+        <div class="os-item" data-os="windows" tabindex="0" role="button" aria-pressed="false" aria-label="Windows Platform">
+          <img src="https://i.ibb.co/gLGHV4pb/windows-1-removebg-preview.png" alt="Windows" />
+          WINDOWS
+        </div>
+        <div class="os-item" data-os="linux" tabindex="0" role="button" aria-pressed="false" aria-label="Linux Platform">
+          <img src="https://i.ibb.co/SDxGV6pV/linux-removebg-preview.png" alt="Linux" />
+          LINUX
+        </div>
       </div>
-      <h2>Choose Yours</h2>
-      <ul class="os-list" id="os-list">
-        <li data-os="android"><img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Android_Robot.svg" alt="Android"><span>Android</span></li>
-        <li data-os="windows"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Windows_logo_-_2021.svg" alt="Windows"><span>Windows</span></li>
-        <li data-os="linux"><img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Tux.svg" alt="Linux"><span>Linux</span></li>
-      </ul>
-    </div>
-    <div class="download-section" id="download-section">
-      <h3>Download KINAFLIX</h3>
-      <p>This is KINAFLIX compatible with Android as the latest version. Enjoy seamless streaming on your Android phone or tablet, such as a Samsung Galaxy S23 or Google Pixel 8, with support for Android 8.0 (Oreo) and above.</p>
-      <a href="https://example.com/kinaflix-app.apk" class="download-btn" id="download-btn">Download Now</a>
-      <div class="version">Version: 1.0.0</div>
-    </div>
+      <div class="footer-text">Made by btem@fficial</div>
+    </aside>
+
+    <main class="right" id="rightPanel" aria-live="polite" aria-atomic="true" tabindex="0">
+      <!-- Details content will load here -->
+    </main>
   </div>
-  <div class="footer">
-    Kinaflix app by btem@fficial
-  </div>
+
+  <!-- Overlay for mobile menu -->
+  <div id="overlay" tabindex="-1"></div>
 
   <script>
-    const osList = document.getElementById('os-list');
-    const downloadSection = document.getElementById('download-section');
-    let currentOs = null;
+    const osInfo = {
+      android: `
+        <p>Experience seamless streaming on your Android devices with the KINAFLIX app. Optimized for phones and tablets running Android 8.0 (Oreo) or later, including the latest Samsung Galaxy and Google Pixel devices.</p>
+        <p><strong>v1.0.0 • Latest</strong></p>
+        <p><strong>System Requirements</strong></p>
+        <ul>
+          <li>Android 8.0 (Oreo) or later</li>
+          <li>Minimum 2GB RAM (4GB recommended)</li>
+          <li>At least 200MB free storage</li>
+          <li>Stable internet connection (5Mbps for HD)</li>
+        </ul>
+        <a href="https://example.com/download-android" target="_blank" rel="noopener" class="download-btn">Download</a>
+      `,
+      windows: `
+        <p>Enjoy smooth streaming on Windows PCs with the KINAFLIX desktop app. Compatible with Windows 10 and later versions for optimal performance.</p>
+        <p><strong>v1.0.0 • Latest</strong></p>
+        <p><strong>System Requirements</strong></p>
+        <ul>
+          <li>Windows 10 or later</li>
+          <li>Minimum 4GB RAM</li>
+          <li>At least 500MB free storage</li>
+          <li>Stable internet connection (5Mbps for HD)</li>
+        </ul>
+        <a href="https://example.com/download-windows" target="_blank" rel="noopener" class="download-btn">Download</a>
+      `,
+      linux: `
+        <p>Stream your favorite content on Linux with the KINAFLIX app. Supports popular distributions such as Ubuntu, Fedora, and Zorin OS.</p>
+        <p><strong>v1.0.0 • Latest</strong></p>
+        <p><strong>System Requirements</strong></p>
+        <ul>
+          <li>Ubuntu 18.04 or later, Fedora 30 or later, Zorin OS 15 or later</li>
+          <li>Minimum 4GB RAM</li>
+          <li>At least 300MB free storage</li>
+          <li>Stable internet connection (5Mbps for HD)</li>
+        </ul>
+        <a href="https://example.com/download-linux" target="_blank" rel="noopener" class="download-btn">Download</a>
+      `
+    };
 
-    // Auto-detect OS
-    function detectOS() {
-      const userAgent = navigator.userAgent.toLowerCase();
-      if (userAgent.includes('android')) return 'android';
-      if (userAgent.includes('win')) return 'windows';
-      if (userAgent.includes('linux')) return 'linux';
-      return 'android'; // Default to Android
+    const osList = document.getElementById('osList');
+    const rightPanel = document.getElementById('rightPanel');
+    const leftPanel = document.getElementById('leftPanel');
+    const toggleLeftBtn = document.getElementById('toggleLeftBtn');
+    const overlay = document.getElementById('overlay');
+
+    function clearActive() {
+      const items = osList.querySelectorAll('.os-item');
+      items.forEach(item => {
+        item.classList.remove('active');
+        item.setAttribute('aria-pressed', 'false');
+      });
     }
 
-    // Initial OS selection
-    function initOS() {
-      const detectedOs = detectOS();
-      const initialLi = [...osList.children].find(li => li.dataset.os === detectedOs);
-      if (initialLi) {
-        initialLi.classList.add('selected');
-        updateDownloadSection(initialLi.dataset.os);
+    function showOSInfo(os) {
+      if (osInfo[os]) {
+        const platformName = os.charAt(0).toUpperCase() + os.slice(1);
+        rightPanel.innerHTML = `<div class="platform-title">${platformName}</div>` + osInfo[os];
+        rightPanel.classList.add('details-panel', 'visible');
+        rightPanel.focus();
+      } else {
+        rightPanel.innerHTML = '';
+        rightPanel.classList.remove('details-panel', 'visible');
       }
     }
 
-    osList.addEventListener('click', (e) => {
-      const li = e.target.closest('li');
-      if (li && li.dataset.os) {
-        [...osList.children].forEach(item => item.classList.remove('selected'));
-        li.classList.add('selected');
-        updateDownloadSection(li.dataset.os);
+    // Handle OS item click & keyboard
+    osList.addEventListener('click', e => {
+      const osItem = e.target.closest('.os-item');
+      if (!osItem) return;
+
+      clearActive();
+      osItem.classList.add('active');
+      osItem.setAttribute('aria-pressed', 'true');
+
+      const os = osItem.getAttribute('data-os');
+      showOSInfo(os);
+
+      // If mobile, close left menu on selection
+      if (window.innerWidth < 768) {
+        toggleLeftPanel(false);
       }
     });
 
-    function updateDownloadSection(os) {
-      currentOs = os;
-      let link = '';
-      let text = '';
+    osList.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const osItem = e.target.closest('.os-item');
+        if (!osItem) return;
 
-      switch (os) {
-        case 'android':
-          link = 'https://example.com/kinaflix-app.apk';
-          text = 'This is KINAFLIX compatible with Android as the latest version. Enjoy seamless streaming on your Android phone or tablet, such as a Samsung Galaxy S23 or Google Pixel 8, with support for Android 8.0 (Oreo) and above.';
-          break;
-        case 'windows':
-          link = 'https://example.com/kinaflix-app.exe';
-          text = 'This is KINAFLIX compatible with Windows as the latest version. Perfect for PCs and laptops, including Windows 10 or 11 on devices like Dell XPS 13 or HP Spectre x360.';
-          break;
-        case 'linux':
-          link = 'https://example.com/kinaflix-app.tar.gz';
-          text = 'This is KINAFLIX compatible with Linux as the latest version. Ideal for distributions like Ubuntu 20.04+ or Fedora 36+, running on devices such as Lenovo ThinkPad.';
-          break;
-        default:
-          link = 'https://example.com/kinaflix-app.apk';
-          text = 'This is KINAFLIX compatible with Android as the latest version. Enjoy seamless streaming on your Android phone or tablet.';
+        clearActive();
+        osItem.classList.add('active');
+        osItem.setAttribute('aria-pressed', 'true');
+
+        const os = osItem.getAttribute('data-os');
+        showOSInfo(os);
+
+        if (window.innerWidth < 768) {
+          toggleLeftPanel(false);
+        }
       }
+    });
 
-      downloadSection.classList.remove('enter', 'leave');
-      downloadSection.classList.add('leave');
-      setTimeout(() => {
-        downloadSection.innerHTML = `
-          <h3>Download KINAFLIX</h3>
-          <p>${text}</p>
-          <a href="${link}" class="download-btn" id="download-btn">Download Now</a>
-          <div class="version">Version: 1.0.0</div>
-        `;
-        downloadSection.classList.remove('leave');
-        downloadSection.classList.add('enter');
-        downloadSection.scrollTop = 0; // Auto-scroll to top
-      }, 500);
+    // Toggle left panel on mobile
+    function toggleLeftPanel(show) {
+      if (show) {
+        leftPanel.classList.add('show');
+        toggleLeftBtn.setAttribute('aria-expanded', 'true');
+        overlay.classList.add('show');
+      } else {
+        leftPanel.classList.remove('show');
+        toggleLeftBtn.setAttribute('aria-expanded', 'false');
+        overlay.classList.remove('show');
+      }
     }
 
-    // Initialize on load
-    document.addEventListener('DOMContentLoaded', initOS);
+    toggleLeftBtn.addEventListener('click', () => {
+      const isShown = leftPanel.classList.contains('show');
+      toggleLeftPanel(!isShown);
+    });
+
+    // Hide menu if overlay clicked
+    overlay.addEventListener('click', () => {
+      toggleLeftPanel(false);
+    });
+
+    // Optional: Select first OS by default on page load
+    window.addEventListener('load', () => {
+      const firstOS = osList.querySelector('.os-item[data-os="android"]');
+      if (firstOS) {
+        firstOS.classList.add('active');
+        firstOS.setAttribute('aria-pressed', 'true');
+        showOSInfo('android');
+      }
+    });
+
+    // Close left menu on window resize if desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        toggleLeftPanel(false);
+      }
+    });
   </script>
 </body>
 </html>
