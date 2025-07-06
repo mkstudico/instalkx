@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Full App - KINAFLIX</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: #141414;
+      color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .container {
+      display: flex;
+      flex: 1;
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    .os-section {
+      flex: 0 0 250px;
+      position: fixed;
+      top: 2rem;
+      left: 1rem;
+      background: #1f1f1f;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      height: calc(100vh - 4rem);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .os-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .logo {
+      width: 150px;
+      height: auto;
+      margin-bottom: 0.5rem;
+    }
+    .name {
+      font-size: 1.5rem;
+      color: #e50914;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .os-section h2 {
+      color: #e50914;
+      font-size: 1.6rem;
+      margin: 0 0 1rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .os-list {
+      list-style: none;
+      padding: 0;
+      flex: 1;
+    }
+    .os-list li {
+      font-size: 1.1rem;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.5rem;
+      color: #ccc;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      border-radius: 5px;
+      transition: background 0.3s, color 0.3s;
+    }
+    .os-list li img {
+      width: 28px;
+      height: 28px;
+      filter: brightness(0.8);
+      transition: filter 0.3s;
+    }
+    .os-list li.selected {
+      background: #2a2a2a;
+    }
+    .os-list li.selected span {
+      color: #e50914; /* Red for selected OS text */
+    }
+    .os-list li.selected img {
+      filter: brightness(1);
+    }
+    .os-list li:hover {
+      background: #2a2a2a;
+      color: #fff;
+    }
+    .os-list li:hover img {
+      filter: brightness(1);
+    }
+    .download-section {
+      flex: 1;
+      margin-left: 270px; /* Offset for OS section */
+      padding: 2rem;
+      background: #1f1f1f;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      height: calc(100vh - 4rem);
+      overflow-y: auto;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+    .download-section.enter {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .download-section.leave {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    .download-section h3 {
+      color: #e50914;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .download-section p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      color: #bbb;
+    }
+    .download-btn {
+      background-color: #e50914;
+      color: white;
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+    .download-btn:hover {
+      background-color: #f40612;
+    }
+    .version {
+      font-size: 0.9rem;
+      color: #999;
+      margin-top: 1rem;
+    }
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      background: #1f1f1f;
+      color: #999;
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+    @media (max-width: 768px) {
+      .os-section {
+        position: static;
+        flex: 0 0 180px;
+        height: auto;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+      }
+      .os-header {
+        margin-bottom: 1rem;
+      }
+      .logo {
+        width: 120px;
+      }
+      .name {
+        font-size: 1.2rem;
+      }
+      .download-section {
+        margin-left: 0;
+        padding: 1rem;
+        height: auto;
+        overflow-y: visible;
+      }
+      .os-section h2 {
+        font-size: 1.3rem;
+      }
+      .os-list li {
+        font-size: 1rem;
+        padding: 0.6rem 0.8rem;
+      }
+      .os-list li img {
+        width: 22px;
+        height: 22px;
+      }
+      .download-section h3 {
+        font-size: 1.2rem;
+      }
+      .download-btn {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+      }
+      .container {
+        flex-direction: column;
+        padding-top: 0;
+      }
+      .os-section, .download-section {
+        height: auto;
+      }
+      .footer {
+        margin-top: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="os-section">
+      <div class="os-header">
+        <img src="https://via.placeholder.com/150x50.png?text=KINAFLIX+Logo" alt="KINAFLIX Logo" class="logo">
+        <h1 class="name">KINAFLIX</h1>
+      </div>
+      <h2>Choose Yours</h2>
+      <ul class="os-list" id="os-list">
+        <li data-os="android"><img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Android_Robot.svg" alt="Android"><span>Android</span></li>
+        <li data-os="windows"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Windows_logo_-_2021.svg" alt="Windows"><span>Windows</span></li>
+        <li data-os="linux"><img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Tux.svg" alt="Linux"><span>Linux</span></li>
+      </ul>
+    </div>
+    <div class="download-section" id="download-section">
+      <h3>Download KINAFLIX</h3>
+      <p>This is KINAFLIX compatible with Android as the latest version. Enjoy seamless streaming on your Android phone or tablet, such as a Samsung Galaxy S23 or Google Pixel 8, with support for Android 8.0 (Oreo) and above.</p>
+      <a href="https://example.com/kinaflix-app.apk" class="download-btn" id="download-btn">Download Now</a>
+      <div class="version">Version: 1.0.0</div>
+    </div>
+  </div>
+  <div class="footer">
+    Kinaflix app by btem@fficial
+  </div>
+
+  <script>
+    const osList = document.getElementById('os-list');
+    const downloadSection = document.getElementById('download-section');
+    let currentOs = null;
+
+    // Auto-detect OS
+    function detectOS() {
+      const userAgent = navigator.userAgent.toLowerCase();
+      if (userAgent.includes('android')) return 'android';
+      if (userAgent.includes('win')) return 'windows';
+      if (userAgent.includes('linux')) return 'linux';
+      return 'android'; // Default to Android
+    }
+
+    // Initial OS selection
+    function initOS() {
+      const detectedOs = detectOS();
+      const initialLi = [...osList.children].find(li => li.dataset.os === detectedOs);
+      if (initialLi) {
+        initialLi.classList.add('selected');
+        updateDownloadSection(initialLi.dataset.os);
+      }
+    }
+
+    osList.addEventListener('click', (e) => {
+      const li = e.target.closest('li');
+      if (li && li.dataset.os) {
+        [...osList.children].forEach(item => item.classList.remove('selected'));
+        li.classList.add('selected');
+        updateDownloadSection(li.dataset.os);
+      }
+    });
+
+    function updateDownloadSection(os) {
+      currentOs = os;
+      let link = '';
+      let text = '';
+
+      switch (os) {
+        case 'android':
+          link = 'https://example.com/kinaflix-app.apk';
+          text = 'This is KINAFLIX compatible with Android as the latest version. Enjoy seamless streaming on your Android phone or tablet, such as a Samsung Galaxy S23 or Google Pixel 8, with support for Android 8.0 (Oreo) and above.';
+          break;
+        case 'windows':
+          link = 'https://example.com/kinaflix-app.exe';
+          text = 'This is KINAFLIX compatible with Windows as the latest version. Perfect for PCs and laptops, including Windows 10 or 11 on devices like Dell XPS 13 or HP Spectre x360.';
+          break;
+        case 'linux':
+          link = 'https://example.com/kinaflix-app.tar.gz';
+          text = 'This is KINAFLIX compatible with Linux as the latest version. Ideal for distributions like Ubuntu 20.04+ or Fedora 36+, running on devices such as Lenovo ThinkPad.';
+          break;
+        default:
+          link = 'https://example.com/kinaflix-app.apk';
+          text = 'This is KINAFLIX compatible with Android as the latest version. Enjoy seamless streaming on your Android phone or tablet.';
+      }
+
+      downloadSection.classList.remove('enter', 'leave');
+      downloadSection.classList.add('leave');
+      setTimeout(() => {
+        downloadSection.innerHTML = `
+          <h3>Download KINAFLIX</h3>
+          <p>${text}</p>
+          <a href="${link}" class="download-btn" id="download-btn">Download Now</a>
+          <div class="version">Version: 1.0.0</div>
+        `;
+        downloadSection.classList.remove('leave');
+        downloadSection.classList.add('enter');
+        downloadSection.scrollTop = 0; // Auto-scroll to top
+      }, 500);
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', initOS);
+  </script>
+</body>
+</html>
